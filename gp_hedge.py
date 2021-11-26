@@ -22,7 +22,8 @@ class GpHedge:
       self.chosen_x_list.append(chosen_x)
       self.gp.sample_and_add(chosen_x)
       self.gp.update()
-    self.gains = [self.gains[idx] + self.gp.get_mean(self.af[idx], max_points[idx]) for idx in range(0, len(self.af))]
+    means = self.gp.get_means(max_points)
+    self.gains = [self.gains[idx] + means[idx] for idx in range(0, len(self.af))]
 
   def compute_probabilities(self):
     total = sum([math.exp(self.eta * gain) for gain in self.gains])

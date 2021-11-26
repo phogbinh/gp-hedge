@@ -15,19 +15,9 @@ class MockGp:
   def update(self):
     pass
 
-  def get_mean(self, af, x): # allocation function, x
+  def get_means(self, points):
     if not self.first_iteration_end:
-      if af == "PI":
-        return 1
-      elif af == "EI":
-        return 10
-      else: # UCB
-        self.first_iteration_end = True
-        return 0.1
+      self.first_iteration_end = True
+      return [1, 10, 0.1]
     else:
-      if af == "PI":
-        return 1
-      elif af == "EI":
-        return -6
-      else: # UCB
-        return 3
+      return [1, -6, 3]
